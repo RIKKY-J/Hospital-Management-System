@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login — City Hospital</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="gradient-bg">
+  <header>
+    <h1>City Hospital</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/book.html">Book Appointment</a>
+      <a href="/about.html">About</a>
+      <a href="/staff.html" aria-current="page">Login</a>
+    </nav>
+  </header>
+
+  <main class="center-box">
+    <section class="login-card">
+      <h2>Staff Login</h2>
+      <form id="loginForm">
+        <label>Username<input name="username" required /></label>
+        <label>Password<input name="password" type="password" required /></label>
+        <label>Role
+          <select name="role" required>
+            <option value="admin">Admin</option>
+            <option value="doctor">Doctor</option>
+            <option value="nurse">Nurse</option>
+            <option value="staff">Staff</option>
+          </select>
+        </label>
+        <button type="submit" class="btn full">Login</button>
+      </form>
+      <div id="loginMsg" class="muted"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const body = Object.fromEntries(fd.entries());
+      try {
+        const data = await postJSON("/api/login", body);
+        sessionStorage.setItem("token", data.token);
+        sessionStorage.setItem("role", data.role);
+        sessionStorage.setItem("username", data.username);
+        if (data.role === "admin") window.location = "admin.html";
+        else if (data.role === "doctor") window.location = "doctor.html";
+        else if (data.role === "nurse") window.location = "nurse.html";
+        else window.location = "staffdash.html";
+      } catch (err) {
+        document.getElementById("loginMsg").textContent = err.message;
+      }
+    });
+  </script>
+</body>
+</html>

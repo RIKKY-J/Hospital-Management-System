@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Doctor Dashboard — City Hospital</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="gradient-bg">
+  <header>
+    <h1>City Hospital — Doctor Dashboard</h1>
+    <nav><a href="/" class="btn alt small">Logout</a></nav>
+  </header>
+  <main class="center-box">
+    <section class="login-card">
+      <h2>Coming Soon...</h2>
+      <p>This section is under development.</p>
+    </section>
+  </main>
+  <script>
+    if (sessionStorage.getItem("role") !== "doctor") window.location = "staff.html";
+  </script>
+</body>
+</html>

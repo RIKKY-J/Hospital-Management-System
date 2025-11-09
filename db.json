@@ -1,0 +1,83 @@
+{
+  "doctors": [
+    {
+      "id": 1,
+      "name": "Dr. Asha Patel",
+      "specialty": "Cardiology"
+    },
+    {
+      "id": 2,
+      "name": "Dr. Rahul Sharma",
+      "specialty": "Orthopedics"
+    },
+    {
+      "id": 3,
+      "name": "Dr. Nisha Verma",
+      "specialty": "Pediatrics"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Suresh",
+      "phone": "9998887776",
+      "email": "suresh@example.com"
+    },
+    {
+      "id": 2,
+      "name": "Jay",
+      "phone": "9876543234",
+      "email": "jay@gmail"
+    },
+    {
+      "id": 3,
+      "name": "Fab",
+      "phone": "7896541258",
+      "email": "fab@gmail"
+    },
+    {
+      "id": 4,
+      "name": "harsh",
+      "phone": "8457458652",
+      "email": "harsh@gmail"
+    },
+    {
+      "id": 5,
+      "name": "Sam1",
+      "phone": "8765675435",
+      "email": "sam1@mail"
+    }
+  ],
+  "appointments": [
+    {
+      "id": 1,
+      "patientId": 5,
+      "doctorId": 2,
+      "date": "2025-11-11",
+      "time": "10:30",
+      "status": "booked"
+    }
+  ],
+  "staff": [
+    {
+      "username": "admin",
+      "password": "admin123",
+      "role": "admin"
+    },
+    {
+      "username": "staff1",
+      "password": "pass123",
+      "role": "staff"
+    },
+    {
+      "username": "drrahul",
+      "password": "doc123",
+      "role": "doctor"
+    },
+    {
+      "username": "nurse1",
+      "password": "nurse123",
+      "role": "nurse"
+    }
+  ]
+}

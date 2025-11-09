@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin Dashboard — City Hospital</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #2b6cb0;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 1000;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .small-muted { color: #6b7280; font-size: 13px; margin-top:6px; }
+    /* ensure table's delete button stands out on gradient */
+    .btn.red { background: #e53935; }
+  </style>
+</head>
+<body class="gradient-bg">
+  <header>
+    <h1>City Hospital — Admin Dashboard</h1>
+    <nav>
+      <button id="logoutBtn" class="btn alt small">Logout</button>
+    </nav>
+  </header>
+
+  <main class="admin-page">
+    <section class="stats-row">
+  <div class="stat-card blue">
+    <h3 id="totalDoctors" style="color:white;">0</h3>
+    <p style="color:white;">Total Doctors</p>
+  </div>
+  <div class="stat-card blue">
+    <h3 id="totalPatients" style="color:white;">0</h3>
+    <p style="color:white;">Total Patients</p>
+  </div>
+</section>
+
+    <section class="card full">
+      <h2>Appointments</h2>
+      <p class="small-muted">View and manage scheduled appointments.</p>
+      <table id="apptTable">
+        <thead>
+          <tr><th>ID</th><th>Patient</th><th>Doctor ID</th><th>Date</th><th>Time</th><th>Status</th><th>Action</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <section class="card full">
+      <h2>Doctors</h2>
+      <table id="doctorTable">
+        <thead><tr><th>ID</th><th>Name</th><th>Specialty</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <section class="card full">
+      <h2>Users</h2>
+      <table id="userTable">
+        <thead><tr><th>ID</th><th>Name</th><th>Email</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    // Redirect if not admin
+    const role = sessionStorage.getItem("role");
+    if (role !== "admin") window.location = "staff.html";
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      sessionStorage.clear();
+      window.location = "staff.html";
+    });
+
+    function showToast(msg) {
+      const t = document.createElement('div');
+      t.className = 'toast';
+      t.textContent = msg;
+      document.body.appendChild(t);
+      setTimeout(() => t.classList.add('show'), 50);
+      setTimeout(() => { t.classList.remove('show'); setTimeout(()=>t.remove(),300); }, 2200);
+    }
+
+    // load admin data
+    async function loadAdmin() {
+      try {
+        const data = await getJSON('/api/admin/all');
+
+        document.getElementById('totalDoctors').textContent = (data.doctors || []).length;
+        document.getElementById('totalPatients').textContent = (data.users || []).length;
+
+        const docT = document.querySelector('#doctorTable tbody');
+        docT.innerHTML = (data.doctors || []).map(d => `<tr><td>${d.id}</td><td>${escapeHtml(d.name)}</td><td>${escapeHtml(d.specialty)}</td></tr>`).join('');
+
+        const userT = document.querySelector('#userTable tbody');
+        userT.innerHTML = (data.users || []).map(u => `<tr><td>${u.id}</td><td>${escapeHtml(u.name)}</td><td>${escapeHtml(u.email||u.phone)}</td></tr>`).join('');
+
+        const apptT = document.querySelector('#apptTable tbody');
+        const appts = data.appointments || [];
+        if (!appts.length) {
+          apptT.innerHTML = `<tr><td colspan="7">No appointments yet</td></tr>`;
+        } else {
+          apptT.innerHTML = appts.map(a => `
+            <tr>
+              <td>${a.id}</td>
+              <td>${escapeHtml(a.name)}</td>
+              <td>${a.doctorId}</td>
+              <td>${a.date}</td>
+              <td>${a.time}</td>
+              <td>${escapeHtml(a.status)}</td>
+              <td><button class="btn small red" data-id="${a.id}">Delete</button></td>
+            </tr>
+          `).join('');
+          // attach click handlers
+          Array.from(document.querySelectorAll('#apptTable button[data-id]')).forEach(btn => {
+            btn.addEventListener('click', () => deleteAppt(Number(btn.dataset.id)));
+          });
+        }
+      } catch (err) {
+        console.error('Failed to load admin data', err);
+        showToast('Failed to load data');
+      }
+    }
+
+    async function deleteAppt(id) {
+      if (!confirm('Are you sure you want to delete this appointment?')) return;
+      try {
+        const res = await fetch(`/api/appointments/${id}`, { method: 'DELETE' });
+        if (!res.ok) {
+          let txt = 'Failed to delete';
+          try { const body = await res.json(); txt = body.error || txt; } catch(e){}
+          throw new Error(txt);
+        }
+        const body = await res.json();
+        if (body.success) {
+          showToast('Appointment deleted');
+          loadAdmin();
+        } else {
+          throw new Error('Delete failed');
+        }
+      } catch (err) {
+        console.error('Delete error', err);
+        showToast('Error deleting appointment: ' + (err.message || ''));
+      }
+    }
+
+    // helper escapeHtml
+    function escapeHtml(s){ if(!s && s!==0) return ''; return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+    loadAdmin();
+  </script>
+</body>
+</html>

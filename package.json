@@ -1,0 +1,29 @@
+{
+  "name": "hospital-system",
+  "version": "1.0.0",
+  "main": "server.js",
+  "description": "City Hospital Management System — Full project with Allure Quality Reporting",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "test": "mocha --reporter mocha-allure-reporter --timeout 40000 test/*.js",
+    "report": "npx allure generate allure-results --clean -o allure-report && npx allure open allure-report"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "allure-commandline": "^2.29.0",
+    "allure-mocha": "^3.4.2",
+    "chai": "^6.2.0",
+    "chromedriver": "^142.0.1",
+    "mocha": "^11.7.5",
+    "mocha-allure-reporter": "^1.4.0",
+    "selenium-webdriver": "^4.38.0"
+  },
+  "keywords": ["hospital", "management", "system", "selenium", "mocha", "allure", "testing"],
+  "author": "Your Name",
+  "license": "ISC"
+}

@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>About — City Hospital</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body.gradient-bg {
+      background: linear-gradient(135deg, #2b6cb0 0%, #4a78d0 100%);
+      min-height: 100vh;
+      color: #222;
+      font-family: Arial, sans-serif;
+    }
+    
+    header {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    header h1 {
+      text-align: center;
+      color: #2b6cb0;
+      margin-bottom: 10px;
+      font-size: 2em;
+    }
+    
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+    
+    nav a {
+      color: #2b6cb0;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+    }
+    
+    nav a:hover,
+    nav a[aria-current="page"] {
+      background: #2b6cb0;
+      color: white;
+    }
+    
+    main {
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .about-container {
+      max-width: 1000px;
+      width: 100%;
+      margin: 40px auto;
+      background: #fff;
+      padding: 32px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+    
+    .about-container h2 {
+      color: #2b6cb0;
+      margin-bottom: 10px;
+      font-size: 2em;
+    }
+    
+    .about-container p {
+      line-height: 1.6;
+      color: #333;
+    }
+    
+    .section {
+      margin-top: 32px;
+    }
+    
+    .section h3 {
+      color: #2b6cb0;
+      margin-bottom: 8px;
+      font-size: 1.5em;
+    }
+    
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    
+    .service-card {
+      background: #f8faff;
+      border-radius: 10px;
+      padding: 18px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+    }
+    
+    .service-card h4 {
+      color: #2b6cb0;
+      margin-bottom: 6px;
+      font-size: 1.2em;
+    }
+    
+    .why-choose {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    
+    .why-card {
+      background: #f8faff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    
+    .why-card h4 {
+      color: #2b6cb0;
+      margin-bottom: 6px;
+      font-size: 1.2em;
+    }
+    
+    @media (max-width: 768px) {
+      .about-container {
+        margin: 20px auto;
+        padding: 20px;
+      }
+      
+      header h1 {
+        font-size: 1.5em;
+      }
+      
+      nav {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body class="gradient-bg">
+  <header>
+    <h1>City Hospital</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about.html" aria-current="page">About</a>
+      <a href="/book.html">Book Appointment</a>
+      <a href="/staff.html">Staff Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="about-container">
+      <h2>About City Hospital</h2>
+      <p>
+        City Hospital is a trusted healthcare institution dedicated to delivering compassionate, patient-centered medical care. 
+        Established in 1995, we have proudly served our community for over two decades with a commitment to excellence, 
+        innovation, and accessibility for every individual in need of healthcare services.
+      </p>
+
+      <div class="section">
+        <h3>Our Mission</h3>
+        <p>
+          To provide world-class healthcare services that are affordable, accessible, and delivered with empathy and integrity. 
+          We aim to improve the quality of life in our community through innovation, modern medical practices, and a team of 
+          dedicated professionals.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>Our Vision</h3>
+        <p>
+          To be recognized as a leading healthcare provider in the region — offering advanced technology, outstanding 
+          patient experience, and an unwavering commitment to care and cure.
+        </p>
+      </div>
+
+      <div class="section">
+        <h3>Our Services</h3>
+        <div class="services-grid">
+          <div class="service-card">
+            <h4>Emergency Care</h4>
+            <p>24/7 emergency services with skilled doctors and rapid response teams.</p>
+          </div>
+          <div class="service-card">
+            <h4>Advanced Surgery</h4>
+            <p>Modern surgical facilities and expert surgeons ensuring safe, precise operations.</p>
+          </div>
+          <div class="service-card">
+            <h4>Diagnostics</h4>
+            <p>High-quality imaging and lab testing for accurate, timely diagnoses.</p>
+          </div>
+          <div class="service-card">
+            <h4>Specialized Departments</h4>
+            <p>Cardiology, Orthopedics, Pediatrics, and more — specialized care for every need.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Why Choose Us?</h3>
+        <div class="why-choose">
+          <div class="why-card">
+            <h4>Experienced Professionals</h4>
+            <p>Our team includes top-tier doctors and nurses with years of specialized experience.</p>
+          </div>
+          <div class="why-card">
+            <h4>Patient-Centered Approach</h4>
+            <p>Every patient is treated with dignity, respect, and personalized care.</p>
+          </div>
+          <div class="why-card">
+            <h4>Cutting-Edge Technology</h4>
+            <p>We continually upgrade our equipment to provide the highest standard of diagnostics and treatment.</p>
+          </div>
+          <div class="why-card">
+            <h4>Affordable Excellence</h4>
+            <p>We combine quality medical care with transparency and affordability for all families.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
